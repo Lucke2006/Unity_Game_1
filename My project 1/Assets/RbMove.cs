@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEditor.AssetImporters;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -102,10 +103,11 @@ public class RbMove : MonoBehaviour
             //Notes: Make something so that when S is pressed, the character looks back, and siderot for when its pressed with A or D
             //More Notes: perhaps make the side rot work with ground check movement, and back side rot as well
             //Side Rotation
+            //walking backwards doesnt work well, its backwards of where you are facing
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
             {
                 Debug.Log("Here");
-                playerVisuals.rotation = transform.rotation;
+                playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, 0.5f);
             }
             else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
             {
@@ -122,10 +124,22 @@ public class RbMove : MonoBehaviour
             }
 
             // Back Rotation
-     
+
+
+            //WORKING HERE: 09/18/2024
             if (Input.GetKey(KeyCode.S))
             {
-                playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(playerVisuals.localEulerAngles.x, 180.0f, playerVisuals.localEulerAngles.z), 1.0f);
+                InputKey = -InputKey;
+                rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f);
+                //InputKey = -InputKey;
+                //playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, 1.0f);
+                
+                //playerVisuals.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, 180.0f + mainCam.localEulerAngles.y, rotZ), 0.1f);
+                //playerVisuals.forward = -mainCam.forward; //WORKING HERE 09/12/2024
+
+
+                //transform.rotation = playerVisuals.rotation;
+                //playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(playerVisuals.localEulerAngles.x, 180.0f, playerVisuals.localEulerAngles.z), 1.0f);
             }
 
             if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
