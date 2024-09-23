@@ -97,6 +97,7 @@ public class RbMove : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
+                playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, Time.deltaTime * 4.0f);
                 rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f); //change camera player direction to camera
             }
             //WORKING HERE 05/24/24
@@ -120,7 +121,7 @@ public class RbMove : MonoBehaviour
             }
             else
             {
-                playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, Time.deltaTime * 4.0f);
+                //playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, Time.deltaTime * 4.0f); //Marked out on 09/23/2024 for the purpose of back rot, its oon forward movement now
             }
 
             // Back Rotation
@@ -131,8 +132,7 @@ public class RbMove : MonoBehaviour
             {
                 InputKey = -InputKey;
                 rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f);
-                //InputKey = -InputKey;
-                //playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, 1.0f);
+                playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(rotX, 180.0f + mainCam.rotation.y, rotZ), 0.5f);
                 
                 //playerVisuals.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, 180.0f + mainCam.localEulerAngles.y, rotZ), 0.1f);
                 //playerVisuals.forward = -mainCam.forward; //WORKING HERE 09/12/2024
