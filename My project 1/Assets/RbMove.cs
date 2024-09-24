@@ -41,6 +41,8 @@ public class RbMove : MonoBehaviour
     public UnityEngine.UI.Slider healthBar;
     public Rigidbody rb;
     private float speed = 7.0f;
+    [Header("LayerMask")]
+    public LayerMask layerMask;
 
     // Start is called before the first frame update
     void start()
@@ -97,7 +99,7 @@ public class RbMove : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, Time.deltaTime * 4.0f);
+                playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, 0.5f);
                 rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f); //change camera player direction to camera
             }
             //WORKING HERE 05/24/24
@@ -119,9 +121,10 @@ public class RbMove : MonoBehaviour
             {
                 playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(0.0f, -45.0f, 0.0f), Time.deltaTime * 5.0f);
             }
-            else
-            {
-                //playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, Time.deltaTime * 4.0f); //Marked out on 09/23/2024 for the purpose of back rot, its oon forward movement now
+
+            //MOVE SIDEWAYS
+            if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)){
+                transform.right = mainCam.right;                        //right vector of transform is aligned with right vector of maincam
             }
 
             // Back Rotation
@@ -134,12 +137,6 @@ public class RbMove : MonoBehaviour
                 rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f);
                 playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(rotX, 180.0f + mainCam.rotation.y, rotZ), 0.5f);
                 
-                //playerVisuals.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, 180.0f + mainCam.localEulerAngles.y, rotZ), 0.1f);
-                //playerVisuals.forward = -mainCam.forward; //WORKING HERE 09/12/2024
-
-
-                //transform.rotation = playerVisuals.rotation;
-                //playerVisuals.localRotation = Quaternion.Slerp(playerVisuals.localRotation, Quaternion.Euler(playerVisuals.localEulerAngles.x, 180.0f, playerVisuals.localEulerAngles.z), 1.0f);
             }
 
             if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
@@ -188,10 +185,18 @@ public class RbMove : MonoBehaviour
         Vector3 nextPos = rb.position + Direction * speed * Time.deltaTime;
 
         //DONT GO THROUGH OBJECTS
-        if(!Physics.Linecast(transform.position, nextPos, out var ohit)){
+        RaycastHit hit;
+        // if(!Physics.SphereCast(transform.position, 0.4f, nextPos, out hit, 0.5f, layerMask, QueryTriggerInteraction.UseGlobal)){
+        //     rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
+
+        // }
+
+        if(!Physics.Linecast(transform.position, nextPos, out var ohit) && !Physics.SphereCast(transform.position, 0.8f, nextPos, out hit, 0.5f, layerMask, QueryTriggerInteraction.UseGlobal)){
             rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
         }
-
+        else{
+            Debug.Log("Now");
+        }
 
     }
 }
