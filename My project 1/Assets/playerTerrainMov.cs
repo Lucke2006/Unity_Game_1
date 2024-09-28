@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerTerrainMov : MonoBehaviour
 {
     public groundCheck scriptGround;
-    public int rotationSpeed = 1;
+    public float rotationSpeed = 0.1f;
     public bool grounded = false;
     public Transform playerVisual;
     public Transform player;
@@ -22,6 +22,8 @@ public class playerTerrainMov : MonoBehaviour
             {
                 if (hit.normal.y < 1.0f)
                 {
+                    //WORKING HERE 09/27/2024
+                    //problem when walking back on tilted objects
                     Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
                     Quaternion targetRotationY = Quaternion.FromToRotation(Vector3.forward, player.forward);
                     Quaternion finalRot = targetRotation * targetRotationY;
@@ -34,7 +36,7 @@ public class playerTerrainMov : MonoBehaviour
             }
         }
         else{
-            playerVisual.rotation = Quaternion.Slerp(playerVisual.rotation, player.rotation, 1.0f);
+            //playerVisual.rotation = Quaternion.Slerp(playerVisual.rotation, player.rotation, 1.0f);
         }
     }
 }

@@ -30,6 +30,7 @@ public class RbMove : MonoBehaviour
     [Header("Bools")]
     public bool canMove = true;
     bool canSideRot = false;
+    bool walkMode = true;
     [Header("Values")]
     public int upForce;
     public int forceDash;
@@ -99,10 +100,10 @@ public class RbMove : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
+                walkMode = true;
                 playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, transform.rotation, 0.5f);
                 rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.Euler(rotX, mainCam.localEulerAngles.y, rotZ), 0.1f); //change camera player direction to camera
             }
-            //WORKING HERE 05/24/24
             //Notes: Make something so that when S is pressed, the character looks back, and siderot for when its pressed with A or D
             //More Notes: perhaps make the side rot work with ground check movement, and back side rot as well
             //Side Rotation
@@ -186,10 +187,7 @@ public class RbMove : MonoBehaviour
 
         //DONT GO THROUGH OBJECTS
         RaycastHit hit;
-        // if(!Physics.SphereCast(transform.position, 0.4f, nextPos, out hit, 0.5f, layerMask, QueryTriggerInteraction.UseGlobal)){
-        //     rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
-
-        // }
+       //HAVE TO FIX FACING THROUGH OBJECTS AT HIGH SPEEDS
 
         if(!Physics.Linecast(transform.position, nextPos, out var ohit) && !Physics.SphereCast(transform.position, 0.8f, nextPos, out hit, 0.5f, layerMask, QueryTriggerInteraction.UseGlobal)){
             rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));

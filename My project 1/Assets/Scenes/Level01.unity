@@ -1556,6 +1556,9 @@ MonoBehaviour:
   scriptGround: {fileID: 1309884736}
   healthBar: {fileID: 2086155856}
   rb: {fileID: 1309884728}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!135 &1309884734
 SphereCollider:
   m_ObjectHideFlags: 0
