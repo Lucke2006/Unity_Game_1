@@ -358,10 +358,12 @@
 "Assets/FollowPlayer.cs"
 "Assets/groundCheck.cs"
 "Assets/PlayerCollision.cs"
+"Assets/PlayerMove.cs"
 "Assets/playerTerrainMov.cs"
 "Assets/player_movement.cs"
 "Assets/RbMove.cs"
 "Assets/rotating_camera.cs"
+"Assets/Rotations.cs"
 "Assets/visualMove.cs"
 -langversion:9.0
 

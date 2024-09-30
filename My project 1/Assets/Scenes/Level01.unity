@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1424,6 +1424,8 @@ GameObject:
   - component: {fileID: 1309884734}
   - component: {fileID: 1309884735}
   - component: {fileID: 1309884736}
+  - component: {fileID: 1309884738}
+  - component: {fileID: 1309884737}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1540,7 +1542,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309884723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02fb4d02dab3d8644aa5815b07075843, type: 3}
   m_Name: 
@@ -1587,7 +1589,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309884723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8252be41624e3804082f3531d6bd47d1, type: 3}
   m_Name: 
@@ -1615,6 +1617,44 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   grounded: 0
+--- !u!114 &1309884737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309884723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5c854da0f273b438dc9aee5303f8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 575834355}
+  playerVisuals: {fileID: 1474594756}
+  player: {fileID: 1309884727}
+  rb: {fileID: 1309884728}
+  rotationSpeed: 4
+--- !u!114 &1309884738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309884723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16f043e416a51b4da2131d6d3c19099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputKey: {x: 0, y: 0, z: 0}
+  transformOffset: {x: 0, y: 0, z: 0}
+  resetTransform: {fileID: 1969055017}
+  mainCam: {fileID: 575834355}
+  upForce: 5
+  forceDash: 10
+  canMove: 1
+  healthBar: {fileID: 2086155856}
+  rb: {fileID: 1309884728}
 --- !u!1 &1474594755
 GameObject:
   m_ObjectHideFlags: 0
