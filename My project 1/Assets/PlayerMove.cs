@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.Jobs;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -16,12 +18,15 @@ public class PlayerMove : MonoBehaviour
     public int forceDash;
     [Header("Bools")]
     public bool canMove = true;
+    public bool lookDown = false;
     [Header("Scripts")]
     groundCheck scriptGround;
      [Header("Others")]
     public UnityEngine.UI.Slider healthBar;
     public Rigidbody rb;
     private float speed = 7.0f;
+    float prePosY;
+    public Quaternion saveRot;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,12 +103,35 @@ public class PlayerMove : MonoBehaviour
 
         //DONT GO THROUGH OBJECTS
 
-        if(!Physics.Linecast(transform.position, nextPos, out var ohit) ){
+        // if(!Physics.Linecast(transform.position, nextPos, out var ohit) ){
+        //     rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
+        // }
+        // else{
+        //     Debug.Log("Now");
+        // }
+        // if(scriptGround.grounded == true){
+        //     prePosY = transform.position.y;
+        //     saveRot = transform.rotation;
+        // }
+        if(!Physics.SphereCast(transform.position, 0.3f, transform.forward, out var hit, 0.2f)){
             rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
         }
         else{
-            Debug.Log("Now");
-        }
 
+            // Debug.Log("HIT");
+            //Vector3 force = rb.GetAccumulatedForce();
+            // rb.AddForce(new Vector3(-10f, -2 - force.y, 0.0f));
+
+            //rb.MovePosition(Vector3.Lerp(transform.position, new Vector3 (transform.position.x, transform.position.y- 1.0f, transform.position.z), 0.3f));
+            //transform.forward = -transform.up;
+        }
+        // Vector3 force = rb.GetAccumulatedForce();
+        // Debug.Log(force.y);
+        // if(force.y == 0.0f && scriptGround.grounded == false && Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 0.2f))
+        // {
+        //     lookDown = true;
+            
+        // }
+        
     }
 }
