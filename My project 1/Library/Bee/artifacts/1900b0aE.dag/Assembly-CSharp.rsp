@@ -364,6 +364,7 @@
 "Assets/RbMove.cs"
 "Assets/rotating_camera.cs"
 "Assets/Rotations.cs"
+"Assets/rotationSpin.cs"
 "Assets/visualMove.cs"
 -langversion:9.0
 

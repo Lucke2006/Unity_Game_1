@@ -23,6 +23,7 @@ public class Cam_move : MonoBehaviour
     private Vector2 lastMousePos; 
     public Vector3 defaultOffset;
     public Vector3 targetOffset;
+    Vector2 mouseDelta;
     [Header("Numbers")]
     public float sensitivity = 5.0f;
     public float smoothing = 2.0f;
@@ -37,20 +38,30 @@ public class Cam_move : MonoBehaviour
     {
         camMain.position = player.position + defaultOffset;
         lastMousePos = Input.mousePosition;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void FixedUpdate()
     {
+        if(Input.GetKey(KeyCode.Escape)){
+            Cursor.lockState = CursorLockMode.None;
+        }
+        // if(Input.GetKey(KeyCode.I)){
+        //     mouseDelta.y = -mouseDelta.y;
+        // } 
         cameraRot.position = player.position;
         // Get the mouse delta
-        Vector2 mouseDelta = (Vector2)Input.mousePosition - lastMousePos;
+        mouseDelta = (Vector2)Input.mousePosition - lastMousePos;
         lastMousePos = Input.mousePosition;
+        if(Input.GetKey(KeyCode.I)){
+            mouseDelta.y *= -1.0f;
+        }
 
         // Scale the mouse delta by sensitivity
         mouseDelta *= sensitivity * Time.deltaTime;
 
         // Update the camera rotation based on mouse delta
         //transform.Rotate(Vector3.up, mouseDelta.x, Space.World);
-        cameraRot.Rotate(Vector3.right, mouseDelta.y, Space.Self);
+        cameraRot.Rotate(Vector3.right, -mouseDelta.y, Space.Self);
 
         //
         cameraRot.Rotate(Vector3.up, mouseDelta.x, Space.World);

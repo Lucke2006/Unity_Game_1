@@ -114,7 +114,7 @@ public class PlayerMove : MonoBehaviour
         //     saveRot = transform.rotation;
         // }
         if(!Physics.SphereCast(transform.position, 0.3f, transform.forward, out var hit, 0.2f)){
-            rb.MovePosition(Vector3.Lerp(transform.position, nextPos, 0.5f));
+            rb.MovePosition(Vector3.Lerp(transform.position, nextPos, Time.deltaTime * 20.0f));
         }
         else{
 
