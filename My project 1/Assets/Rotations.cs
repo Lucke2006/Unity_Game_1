@@ -146,7 +146,6 @@ public class Rotations : MonoBehaviour
                     //WORKING HERE 09/27/2024
                     //problem when walking back on tilted objects
                     Quaternion targetRotation = Quaternion.FromToRotation(playerVisuals.up, hit.normal);
-                    Debug.Log(hit.normal);
                     //Quaternion targetRotationY = Quaternion.FromToRotation(Vector3.forward, -player.forward);
                     Quaternion finalRot = targetRotation * targetRotationY;
                     playerVisuals.rotation = Quaternion.Slerp(playerVisuals.rotation, finalRot, rotationSpeed * Time.deltaTime);

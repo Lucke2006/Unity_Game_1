@@ -355,6 +355,7 @@
 "Assets/CamCollision.cs"
 "Assets/camMove.cs"
 "Assets/CamMove2.cs"
+"Assets/dissapear.cs"
 "Assets/FollowPlayer.cs"
 "Assets/groundCheck.cs"
 "Assets/PlayerCollision.cs"
