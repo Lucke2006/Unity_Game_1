@@ -18,6 +18,9 @@ public class PlayerCollision : MonoBehaviour
         {
             movement.canMove = false;
         }
+        if(collisioninfo.collider.tag == "InstaKill"){
+            healthBar.value = 0.0f;
+        }
         /*if (collisioninfo.collider.tag == "checkPoint") //checkpoint collisions
         {
             Debug.Log("Hit");

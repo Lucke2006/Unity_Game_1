@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-     [Header("Vector3")]
+    [Header("Vector3")]
     public Vector3 InputKey;
     public Vector3 transformOffset;
     Vector3 position;
@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     public bool lookDown = false;
     [Header("Scripts")]
     groundCheck scriptGround;
-     [Header("Others")]
+    [Header("Others")]
     public UnityEngine.UI.Slider healthBar;
     public Rigidbody rb;
     private float speed = 7.0f;
@@ -36,11 +36,11 @@ public class PlayerMove : MonoBehaviour
     // Update handles healthbar, dashes, jump, inputkey reseting
     void Update()
     {
-        InputKey = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        InputKey = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         //HEALTHBAR
-        if(healthBar.value == 0.0f)
-        {   
+        if (healthBar.value == 0.0f)
+        {
             canMove = false;
             if (Input.GetKeyDown("r"))
             {
@@ -53,40 +53,40 @@ public class PlayerMove : MonoBehaviour
         }
 
         //JUMP
-        if(scriptGround.grounded && Input.GetKeyDown(KeyCode.Space))
+        if (scriptGround.grounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(0, upForce, 0, ForceMode.Impulse);
         }
 
         //DASH
-        if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
         {
             rb.AddForce(transform.right * forceDash, ForceMode.Impulse);
         }
-        else if(Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.F))
         {
             rb.AddForce(-transform.right * forceDash, ForceMode.Impulse);
         }
     }
     void FixedUpdate() //Fixed Update calls the move character function continuously
     {
-        if(canMove == true)
-        { 
+        if (canMove == true)
+        {
             moveCharacter(InputKey);
         }
     }
-    void moveCharacter( Vector3 Direction) //This function takes the characters rotatios plus its direction to make a new direction where the characetr will move to
+    void moveCharacter(Vector3 Direction) //This function takes the characters rotatios plus its direction to make a new direction where the characetr will move to
     {
         Direction = rb.rotation * Direction;
 
         //SPRINT
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            if(Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 speed = Mathf.Lerp(speed, 26.0f, 0.05f);
             }
-            else if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
             {
                 speed = Mathf.Lerp(speed, 18.0f, 0.05f);
             }
@@ -95,7 +95,7 @@ public class PlayerMove : MonoBehaviour
         {
             speed = Mathf.Lerp(speed, 13.0f, 0.03f);
         }
-        
+
 
         //ACTUAL MOVE
 
@@ -113,10 +113,13 @@ public class PlayerMove : MonoBehaviour
         //     prePosY = transform.position.y;
         //     saveRot = transform.rotation;
         // }
-        if(!Physics.SphereCast(transform.position, 0.3f, transform.forward, out var hit, 0.2f)){
+        if (!Physics.SphereCast(transform.position, 0.3f, transform.forward, out var hit, 0.2f))
+        {
             rb.MovePosition(Vector3.Lerp(transform.position, nextPos, Time.deltaTime * 20.0f));
+            //rb.MovePosition(nextPos);
         }
-        else{
+        else
+        {
 
             // Debug.Log("HIT");
             //Vector3 force = rb.GetAccumulatedForce();
@@ -130,8 +133,8 @@ public class PlayerMove : MonoBehaviour
         // if(force.y == 0.0f && scriptGround.grounded == false && Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 0.2f))
         // {
         //     lookDown = true;
-            
+
         // }
-        
+
     }
 }
