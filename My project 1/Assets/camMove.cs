@@ -81,6 +81,7 @@ public class Cam_move : MonoBehaviour
 
         cameraRot.localRotation = newRot;
 
+
         cameraRot.localEulerAngles = new Vector3(cameraRot.eulerAngles.x, cameraRot.eulerAngles.y, rotZ); //This bounds y and z axis to 0
 
 

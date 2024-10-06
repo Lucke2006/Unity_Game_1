@@ -1807,7 +1807,7 @@ Transform:
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 8.08, y: 11.87, z: 4.17}
+  m_LocalPosition: {x: 7.92, y: 12.13, z: 4.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2031,7 +2031,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &801307563
@@ -3007,6 +3007,7 @@ GameObject:
   - component: {fileID: 1309884736}
   - component: {fileID: 1309884738}
   - component: {fileID: 1309884737}
+  - component: {fileID: 1309884739}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3103,7 +3104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309884723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51100ef1924b93b4389d2ff36ebe4228, type: 3}
   m_Name: 
@@ -3238,6 +3239,26 @@ MonoBehaviour:
   healthBar: {fileID: 2086155856}
   rb: {fileID: 1309884728}
   saveRot: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1309884739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309884723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bedd6afcbeaf5545821f7a30b8f6094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camMain: {fileID: 963194228}
+  player: {fileID: 1309884727}
+  cameraRot: {fileID: 575834355}
+  defaultOffset: {x: 0, y: 1.1, z: -5.5}
+  targetOffset: {x: 0, y: 0, z: 0}
+  sensitivity: 25
+  smoothing: 4
+  lerpSpeed: 7.5
 --- !u!1 &1317447487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1644986852086243669, guid: 9f44842f27b838c4aae5e4567c1e6c1a, type: 3}
       propertyPath: m_TagString
-      value: ObstaGround
+      value: InstaKill
       objectReference: {fileID: 0}
     - target: {fileID: 4697700839373098753, guid: 9f44842f27b838c4aae5e4567c1e6c1a, type: 3}
       propertyPath: m_UseGravity

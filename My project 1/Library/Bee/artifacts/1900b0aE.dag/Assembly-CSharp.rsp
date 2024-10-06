@@ -390,6 +390,7 @@
 "Assets/dissapear.cs"
 "Assets/FollowPlayer.cs"
 "Assets/groundCheck.cs"
+"Assets/MainCamReworked.cs"
 "Assets/PlayerCollision.cs"
 "Assets/PlayerMove.cs"
 "Assets/playerTerrainMov.cs"
