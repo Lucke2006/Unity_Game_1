@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -19,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     [Header("Bools")]
     public bool canMove = true;
     public bool lookDown = false;
+    bool canDash = true;
+    bool lrDash = true;
     [Header("Scripts")]
     groundCheck scriptGround;
     [Header("Others")]
@@ -55,21 +58,83 @@ public class PlayerMove : MonoBehaviour
         //JUMP
         if (scriptGround.grounded && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(0, upForce, 0, ForceMode.Impulse);
+            rb.AddForce(0, upForce, 0, ForceMode.Force);
         }
 
         //DASH
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
-        {
-            rb.AddForce(transform.right * forceDash, ForceMode.Impulse);
+        // Debug.Log(rb.velocity.x);
+        // if(canDash){
+        //     if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
+        //     {
+        //         rb.AddForce(transform.right * forceDash, ForceMode.Impulse);
+        //         canDash = false;
+        //         lrDash = true;
+        //     }
+        //     else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.F))
+        //     {
+        //         rb.AddForce(-transform.right * forceDash, ForceMode.Impulse);
+        //         canDash = false;
+        //         lrDash = false;
+        //     }
+        // }
+        // if(rb.velocity.x < 1.0f && rb.velocity.x > -1.0f)
+        // {
+        //     canDash = true;
+        //     rb.AddForce(-rb.velocity.x, 0, 0);
+        // }
+        // if(!canDash)
+        // {
+        //     if(Input.GetKey(KeyCode.D) && !lrDash)
+        //     {
+        //         rb.AddForce(-rb.velocity.x, 0, 0);
+        //     }
+        //     else if(Input.GetKey(KeyCode.A) && lrDash)
+        //     {
+        //         rb.AddForce(-rb.velocity.x, 0, 0);
+        //     }
+        // }
+        if(canDash){
+            if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
+            {
+                Debug.Log("NOW");
+                rb.AddForce(transform.right * forceDash, ForceMode.Impulse);
+                canDash = false;
+                lrDash = true;
+            }
+            else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.F))
+            {
+                rb.AddForce(-transform.right * forceDash, ForceMode.Impulse);
+                canDash = false;
+                lrDash = false;
+            }
         }
-        else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.F))
+        //WORKING HERE 10/09/2024
+        if(!canDash)
         {
-            rb.AddForce(-transform.right * forceDash, ForceMode.Impulse);
+            Debug.Log(lrDash);
+            //Debug.Log("HERE");
+            if(Input.GetKey(KeyCode.D) && lrDash == false)
+            {
+                Debug.Log("RIGHT");
+                //rb.AddForce(2*-rb.velocity.x, 0, 0, ForceMode.Impulse);
+                rb.velocity = Vector3.zero;
+            }
+            if(Input.GetKey(KeyCode.A) && lrDash)
+            {
+                Debug.Log("LEFT");
+                //rb.AddForce(-rb.velocity.x, 0, 0);
+                rb.velocity = Vector3.zero;
+            }
+        }
+        if(Math.Abs(rb.velocity.x) < 0.05f)
+        {
+            rb.AddForce(-rb.velocity.x, 0, 0);
+            canDash = true;
         }
     }
     void FixedUpdate() //Fixed Update calls the move character function continuously
     {
+        
         if (canMove == true)
         {
             moveCharacter(InputKey);
