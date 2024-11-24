@@ -93,6 +93,29 @@ public class PlayerMove : MonoBehaviour
         //         rb.AddForce(-rb.velocity.x, 0, 0);
         //     }
         // }
+        
+        //WORKING HERE 10/09/2024
+        //DASH RELATED
+        if(!canDash)
+        {
+            if(Input.GetKey(KeyCode.D) && lrDash == false)
+            {
+                rb.velocity = Vector3.zero;
+            }
+            if(Input.GetKey(KeyCode.A) && lrDash)
+            {
+                rb.velocity = Vector3.zero;
+            }
+        }
+        if(Math.Abs(rb.velocity.x) < 0.05f)
+        {
+            rb.AddForce(-rb.velocity.x, 0, 0);
+            canDash = true;
+        }
+    }
+    void FixedUpdate() //Fixed Update calls the move character function continuously
+    {
+        //PART OF DASH, this is here because it has to do with physics
         if(canDash){
             if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.F))
             {
@@ -108,33 +131,6 @@ public class PlayerMove : MonoBehaviour
                 lrDash = false;
             }
         }
-        //WORKING HERE 10/09/2024
-        if(!canDash)
-        {
-            Debug.Log(lrDash);
-            //Debug.Log("HERE");
-            if(Input.GetKey(KeyCode.D) && lrDash == false)
-            {
-                Debug.Log("RIGHT");
-                //rb.AddForce(2*-rb.velocity.x, 0, 0, ForceMode.Impulse);
-                rb.velocity = Vector3.zero;
-            }
-            if(Input.GetKey(KeyCode.A) && lrDash)
-            {
-                Debug.Log("LEFT");
-                //rb.AddForce(-rb.velocity.x, 0, 0);
-                rb.velocity = Vector3.zero;
-            }
-        }
-        if(Math.Abs(rb.velocity.x) < 0.05f)
-        {
-            rb.AddForce(-rb.velocity.x, 0, 0);
-            canDash = true;
-        }
-    }
-    void FixedUpdate() //Fixed Update calls the move character function continuously
-    {
-        
         if (canMove == true)
         {
             moveCharacter(InputKey);
